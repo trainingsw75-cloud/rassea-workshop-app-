@@ -1,0 +1,11 @@
+name: Build Android APK
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build with Buildozer
+        run: |
+          echo "Здесь будет команда для сборки APK!"
