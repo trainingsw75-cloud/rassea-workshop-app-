@@ -1,0 +1,25 @@
+name: Sync to Hugging Face Space  # Название вашего workflow
+
+on:
+  push:
+    branches: [ main ]  # Запускать при пуше в ветку "main"
+  workflow_dispatch:    # Позволяет запустить workflow вручную из вкладки Actions
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest  # ОС, на которой будет运行 задача
+    steps:
+      # Шаг 1: Получить копию вашего репозитория
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true  # Важно для работы с большими файлами
+      
+      # Шаг 2: Отправить изменения в Hugging Face
+      - name: Push to hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}  # Использует ваш секретный токен
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git push --force https://povarog04:$HF_TOKEN@huggingface.co/spaces/povarog04/rassea-workshop-app- main
