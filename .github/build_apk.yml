@@ -2,3 +2,7 @@
       uses: actions/checkout@v4
       with:
         submodules: false
+    - name: Setup Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
